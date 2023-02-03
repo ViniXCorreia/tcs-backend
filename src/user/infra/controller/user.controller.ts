@@ -13,12 +13,13 @@ import { CreateUserDto } from '../../dto/create-user.dto';
 import { UpdateUserDto } from '../../dto/update-user.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { LoginDto } from 'src/user/dto/login.dto';
+import { LocalAuthGuard } from 'src/_shared/auth/local-auth.guard';
 
 @Controller()
 export class UserController {
 	constructor(private readonly userService: UserService) {}
 
-	@UseGuards(AuthGuard('local'))
+	@UseGuards(LocalAuthGuard)
 	@Post('/login')
 	async login(@Body() loginDto: LoginDto) {
 		return true;

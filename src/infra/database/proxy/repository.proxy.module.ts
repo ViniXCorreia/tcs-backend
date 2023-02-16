@@ -10,7 +10,6 @@ import { UserEntity } from '../entities/user.entity';
 })
 export class RepositoryProxyModule {
 	static USER_REPOSITORY = 'UserRepository';
-	static MESSAGE_REPOSITORY = 'MessageRepository';
 
 	static register(): DynamicModule {
 		return {

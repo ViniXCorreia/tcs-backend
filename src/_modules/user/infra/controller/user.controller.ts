@@ -19,7 +19,7 @@ import { UserService } from './user.service';
 export class UserController {
 	constructor(private userService: UserService) {}
 
-	// @UseGuards(LocalAuthGuard)
+	@UseGuards(LocalAuthGuard)
 	@Post('/login')
 	async login(@Body() loginDto: LoginDto) {
 		return await this.userService.login(loginDto);

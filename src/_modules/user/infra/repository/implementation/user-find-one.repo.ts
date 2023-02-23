@@ -10,7 +10,6 @@ export class UserFindOneByUserNameRepo {
 	) {}
 
 	async execute(username: string) {
-		// return this.userRepository.findOne({ where: { username: username } });
-		return true;
+		return this.userRepository.findOne({ where: { username: username } });
 	}
 }

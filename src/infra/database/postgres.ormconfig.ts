@@ -8,12 +8,12 @@ export const postgres = new DataSource({
 	port: 5432,
 	username: 'postgres',
 	password: 'postgres',
-	database: 'senac_security_exercise',
+	database: 'tcs_backend',
 	entities: [
 		'dist/infra/database/entities/*.entity.{ts,js}',
 		'dist/modules/**/*.entity.{ts,js}',
 	],
 	migrationsTableName: 'migration_table',
-	migrations: ['dist/infra/db/typeorm/migration/*.js'],
+	migrations: ['dist/infra/database/migration/*.js'],
 	logging: process.env.DB_LOG === 'true',
 });

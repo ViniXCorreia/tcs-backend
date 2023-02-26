@@ -1,6 +1,6 @@
 import { Inject } from '@nestjs/common/decorators/core/inject.decorator';
 import { LoginDto } from '../../dto/login.dto';
-import { LoginUseCase } from '../../useCases/implementation/login.usecase';
+import { LoginUseCase } from '../../usecase/login/login.usecase';
 
 export class UserUseCaseHandler {
 	constructor(

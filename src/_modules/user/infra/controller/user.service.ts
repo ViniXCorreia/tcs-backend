@@ -1,17 +1,14 @@
 import { Inject } from '@nestjs/common';
 import { LoginDto } from '../../dto/login.dto';
-import {
-	IUserUseCases,
-	USER_USECASES,
-} from '../../useCases/user-usecase.interface';
+import { ILoginUseCase } from '../../usecase/login/login.interface';
 
-export class UserService implements IUserUseCases {
+
+export class UserService {
 	constructor(
-		@Inject(USER_USECASES)
-		private readonly userUseCases: IUserUseCases
-	) {}
+		private readonly loginUseCase: ILoginUseCase
+	) { }
 	async login(loginDto: LoginDto) {
-		return await this.userUseCases.login(loginDto);
+		return await this.loginUseCase.execute(loginDto);
 	}
 	findOneUser() {
 		throw new Error('Method not implemented.');

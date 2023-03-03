@@ -20,6 +20,7 @@ export class AuthService {
 			documentNumber
 		);
 		if (findUser && findUser.password === password) {
+			//TODO: COLOCAR A FUNÇÃO DE CRIPTOGRAFIA DAS CREDENCIAIS DO USUÁRIO
 			return findUser;
 		}
 		return null;

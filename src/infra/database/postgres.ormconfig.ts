@@ -4,11 +4,11 @@ require('dotenv').config({ path: '.env' });
 export const postgres = new DataSource({
 	name: 'default',
 	type: 'postgres',
-	host: 'localhost',
-	port: 5432,
-	username: 'postgres',
-	password: 'postgres',
-	database: 'tcs_backend',
+	host: process.env.DB_HOST,
+	port: +process.env.DB_PORT,
+	username: process.env.DB_USER,
+	password: process.env.DB_PASS,
+	database: process.env.DB_NAME,
 	entities: [
 		'dist/infra/database/entities/*.entity.{ts,js}',
 		'dist/modules/**/*.entity.{ts,js}',

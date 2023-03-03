@@ -1,33 +1,48 @@
 import { Injectable } from '@nestjs/common';
-import { LoginDto } from 'src/_modules/user/dto/login.dto';
-import { ILoginUseCase } from 'src/_modules/user/usecase/login/login.interface';
+import { PersonEntity } from 'src/infra/database/entities/person.entity';
+import { IFindOnePersonByDocumentNumberUseCase } from '../../useCase/findOnePersonByDocumentNumber/findOnePersonByDocumentNumber.interface';
+import { IFindOnePersonByEmailUseCase } from '../../useCase/findOnePersonByEmail/findOnePersonByEmail.interface';
+import { ILoginUseCase } from '../../useCase/login/login.interface';
 import { CreatePersonDto } from '../dto/create-person.dto';
+import { LoginDTO } from '../dto/login.dto';
 import { UpdatePersonDto } from '../dto/update-person.dto';
 
 @Injectable()
 export class PersonService {
-	constructor(private readonly loginUseCase: ILoginUseCase) {}
-	async login(loginDto: LoginDto) {
-		return await this.loginUseCase.execute(loginDto);
+	constructor(
+		private readonly loginUseCase: ILoginUseCase,
+		private readonly findOnePersonByEmalUseCase: IFindOnePersonByEmailUseCase,
+		private readonly findOnePersoByDocumentNumber: IFindOnePersonByDocumentNumberUseCase
+	) {}
+	async login(loginUser: PersonEntity) {
+		return await this.loginUseCase.execute(loginUser);
 	}
 
-	create(createPersonDto: CreatePersonDto) {
-		return 'This action adds a new person';
+	async create(createPersonDto: CreatePersonDto) {
+		return await 'This action adds a new person';
 	}
 
-	findAll() {
-		return `This action returns all person`;
+	async findAll() {
+		return await `This action returns all person`;
 	}
 
-	findOne(id: number) {
-		return `This action returns a #${id} person`;
+	async findOne(id: number) {
+		return await `This action returns a #${id} person`;
 	}
 
-	update(id: number, updatePersonDto: UpdatePersonDto) {
-		return `This action updates a #${id} person`;
+	async findOnePersonByEmail(email: string) {
+		return await this.findOnePersonByEmalUseCase.execute({ email });
 	}
 
-	remove(id: number) {
-		return `This action removes a #${id} person`;
+	async findOnePersonByDocumentNumber(documentNumber: string) {
+		return await this.findOnePersoByDocumentNumber.execute({ documentNumber });
+	}
+
+	async update(id: number, updatePersonDto: UpdatePersonDto) {
+		return await `This action updates a #${id} person`;
+	}
+
+	async remove(id: number) {
+		return await `This action removes a #${id} person`;
 	}
 }

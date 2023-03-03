@@ -7,12 +7,12 @@ import {
 	Param,
 	Delete,
 	UseGuards,
+	Request,
 } from '@nestjs/common';
 import { PersonService } from './person.service';
 import { CreatePersonDto } from '../dto/create-person.dto';
 import { UpdatePersonDto } from '../dto/update-person.dto';
 import { LocalAuthGuard } from 'src/_shared/auth/local-auth.guard';
-import { LoginDto } from 'src/_modules/user/dto/login.dto';
 
 @Controller('person')
 export class PersonController {
@@ -20,8 +20,8 @@ export class PersonController {
 
 	@UseGuards(LocalAuthGuard)
 	@Post('/login')
-	async login(@Body() loginDto: LoginDto) {
-		return await this.personService.login(loginDto);
+	async login(@Request() req: any) {
+		return await this.personService.login(req.user);
 	}
 
 	@Post()

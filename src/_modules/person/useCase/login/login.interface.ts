@@ -1,10 +1,11 @@
 import { PersonEntity } from 'src/infra/database/entities/person.entity';
+import { LoginPersonResponseDto } from '../../infra/dto/login-response.dto';
 
 export interface ILoginDTO {
-	name: string;
+	documentNumber: string;
 	password: string;
 }
 
 export interface ILoginUseCase {
-	execute(loginDto: ILoginDTO): Promise<PersonEntity>;
+	execute(loginUser: PersonEntity): Promise<LoginPersonResponseDto>;
 }

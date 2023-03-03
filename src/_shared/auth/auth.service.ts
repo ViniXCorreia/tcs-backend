@@ -1,21 +1,27 @@
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { LoginDto } from 'src/_modules/user/dto/login.dto';
-import { UserService } from 'src/_modules/user/infra/controller/user.service';
+import { PersonEntity } from 'src/infra/database/entities/person.entity';
+import { PersonService } from 'src/_modules/person/infra/controller/person.service';
+import { LoginDTO } from 'src/_modules/person/infra/dto/login.dto';
 
 @Injectable()
 export class AuthService {
 	constructor(
-		@Inject(forwardRef(() => UserService))
-		private userService: UserService,
+		@Inject(forwardRef(() => PersonService))
+		private personService: PersonService,
 		private jwtService: JwtService
 	) {}
 
-	async validateUser(loginDto: LoginDto): Promise<any> {
-		const findUser = await this.userService.findOneUser();
-		// if (findUser && findUser.password === pass) {
-		// 	return findUser;
-		// }
+	async validateUser(
+		documentNumber: string,
+		password: string
+	): Promise<PersonEntity> {
+		const findUser = await this.personService.findOnePersonByDocumentNumber(
+			documentNumber
+		);
+		if (findUser && findUser.password === password) {
+			return findUser;
+		}
 		return null;
 	}
 

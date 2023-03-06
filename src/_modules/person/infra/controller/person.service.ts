@@ -1,17 +1,24 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { PersonEntity } from 'src/infra/database/entities/person.entity';
-import { IFindOnePersonByDocumentNumberUseCase } from '../../useCase/findOnePersonByDocumentNumber/findOnePersonByDocumentNumber.interface';
+import {
+	FIND_ONE_PERSON_BY_DOCUMENT_NUMBER,
+	IFindOnePersonByDocumentNumberUseCase,
+} from '../../useCase/findOnePersonByDocumentNumber/findOnePersonByDocumentNumber.interface';
 import { IFindOnePersonByEmailUseCase } from '../../useCase/findOnePersonByEmail/findOnePersonByEmail.interface';
-import { ILoginUseCase } from '../../useCase/login/login.interface';
+import {
+	ILoginUseCase,
+	LOGIN_USECASE,
+} from '../../useCase/login/login.interface';
 import { CreatePersonDto } from '../dto/create-person.dto';
-import { LoginDTO } from '../dto/login.dto';
 import { UpdatePersonDto } from '../dto/update-person.dto';
 
 @Injectable()
 export class PersonService {
 	constructor(
+		@Inject(LOGIN_USECASE)
 		private readonly loginUseCase: ILoginUseCase,
-		private readonly findOnePersonByEmalUseCase: IFindOnePersonByEmailUseCase,
+		// private readonly findOnePersonByEmalUseCase: IFindOnePersonByEmailUseCase,
+		@Inject(FIND_ONE_PERSON_BY_DOCUMENT_NUMBER)
 		private readonly findOnePersoByDocumentNumber: IFindOnePersonByDocumentNumberUseCase
 	) {}
 	async login(loginUser: PersonEntity) {
@@ -30,9 +37,9 @@ export class PersonService {
 		return await `This action returns a #${id} person`;
 	}
 
-	async findOnePersonByEmail(email: string) {
-		return await this.findOnePersonByEmalUseCase.execute({ email });
-	}
+	// async findOnePersonByEmail(email: string) {
+	// 	return await this.findOnePersonByEmalUseCase.execute({ email });
+	// }
 
 	async findOnePersonByDocumentNumber(documentNumber: string) {
 		return await this.findOnePersoByDocumentNumber.execute({ documentNumber });

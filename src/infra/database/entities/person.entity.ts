@@ -1,43 +1,50 @@
-import { Column, CreateDateColumn, Entity, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import {
+	Column,
+	CreateDateColumn,
+	Entity,
+	OneToOne,
+	PrimaryGeneratedColumn,
+	UpdateDateColumn,
+} from 'typeorm';
 import { CompanyEntity } from './company.entity';
 
 @Entity({ name: 'person' })
 export class PersonEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
+	@PrimaryGeneratedColumn()
+	id: number;
 
-  @Column()
-  name: string;
+	@Column()
+	name: string;
 
-  @Column()
-  fantasyName: string;
+	@Column({ nullable: true })
+	fantasyName: string;
 
-  @Column()
-  password: string;
+	@Column()
+	password: string;
 
-  @Column()
-  personType: string;
+	@Column()
+	personType: string;
 
-  @Column()
-  email: string;
+	@Column()
+	email: string;
 
-  @Column()
-  documentNumber: string;
+	@Column()
+	documentNumber: string;
 
-  @Column({ nullable: true })
-  telepone?: string;
+	@Column({ nullable: true })
+	telephone?: string;
 
-  @Column()
-  cellphone: string;
+	@Column()
+	cellphone: string;
 
-  @Column()
-  @CreateDateColumn()
-  createdAt: Date;
+	@Column()
+	@CreateDateColumn()
+	createdAt: Date;
 
-  @Column()
-  @UpdateDateColumn()
-  updatedAt: Date;
+	@Column()
+	@UpdateDateColumn()
+	updatedAt: Date;
 
-  @OneToOne(() => CompanyEntity)
-  company?: CompanyEntity
+	@OneToOne(() => CompanyEntity)
+	company?: CompanyEntity;
 }

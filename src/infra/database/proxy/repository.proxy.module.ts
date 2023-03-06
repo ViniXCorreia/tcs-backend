@@ -11,6 +11,7 @@ import { UserEntity } from '../entities/user.entity';
 })
 export class RepositoryProxyModule {
 	static PERSON_REPOSITORY = 'PersonRepository';
+	static USER_REPOSITORY = 'UserRepository';
 
 	static register(): DynamicModule {
 		return {
@@ -22,8 +23,17 @@ export class RepositoryProxyModule {
 						dataSource.getRepository(PersonEntity),
 					inject: [DB_POSTGRES],
 				},
+				{
+					provide: RepositoryProxyModule.USER_REPOSITORY,
+					useFactory: (dataSource: DataSource) =>
+						dataSource.getRepository(UserEntity),
+					inject: [DB_POSTGRES],
+				},
 			],
-			exports: [RepositoryProxyModule.PERSON_REPOSITORY],
+			exports: [
+				RepositoryProxyModule.PERSON_REPOSITORY,
+				RepositoryProxyModule.USER_REPOSITORY,
+			],
 		};
 	}
 }

@@ -2,7 +2,6 @@ import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PersonEntity } from 'src/infra/database/entities/person.entity';
 import { PersonService } from 'src/_modules/person/infra/controller/person.service';
-import { LoginDTO } from 'src/_modules/person/infra/dto/login.dto';
 
 @Injectable()
 export class AuthService {
@@ -13,11 +12,11 @@ export class AuthService {
 	) {}
 
 	async validateUser(
-		documentNumber: string,
+		username: string,
 		password: string
 	): Promise<PersonEntity> {
 		const findUser = await this.personService.findOnePersonByDocumentNumber(
-			documentNumber
+			username
 		);
 		if (findUser && findUser.password === password) {
 			//TODO: COLOCAR A FUNÇÃO DE CRIPTOGRAFIA DAS CREDENCIAIS DO USUÁRIO
@@ -27,6 +26,6 @@ export class AuthService {
 	}
 
 	async login(user: any) {
-		return this.jwtService.signAsync({ user });
+		return await this.jwtService.signAsync({ user });
 	}
 }

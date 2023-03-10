@@ -13,8 +13,6 @@ import { AuthModule } from 'src/_shared/auth/auth.module';
 	controllers: [PersonController],
 	providers: [
 		PersonService,
-		LoginUseCase,
-		FindOnePersonByDocumentNumberUseCase,
 		{
 			provide: LOGIN_USECASE,
 			useClass: LoginUseCase,

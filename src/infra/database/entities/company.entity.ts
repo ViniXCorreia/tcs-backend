@@ -1,33 +1,44 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import {
+	Column,
+	CreateDateColumn,
+	Entity,
+	JoinColumn,
+	OneToOne,
+	PrimaryGeneratedColumn,
+	UpdateDateColumn,
+} from 'typeorm';
 import { PersonEntity } from './person.entity';
 
 @Entity({ name: 'company' })
 export class CompanyEntity {
+	@PrimaryGeneratedColumn()
+	id: string;
 
-  @PrimaryGeneratedColumn()
-  id: string;
+	@Column()
+	businessName: string;
 
-  @Column()
-  businessName: string;
+	@Column()
+	tradeName: string;
 
-  @Column()
-  tradeName: string;
+	@Column()
+	documentNumber: string;
 
-  @Column()
-  documentNumber: string;
+	@Column()
+	@CreateDateColumn()
+	createdAt: Date;
 
-  @Column()
-  @CreateDateColumn()
-  createdAt: Date;
+	@Column()
+	@UpdateDateColumn()
+	updatedAt: Date;
 
-  @Column()
-  @UpdateDateColumn()
-  updatedAt: Date;
+	@Column()
+	active: boolean;
 
-  @Column()
-  active: boolean;
+	@OneToOne(() => PersonEntity)
+	@JoinColumn({ name: 'responsiblePersonId' })
+	responsiblePerson: PersonEntity;
 
-  @OneToOne(() => PersonEntity)
-  @JoinColumn({ name: 'responsiblePersonId'})
-  responsiblePerson: PersonEntity;
+	@OneToOne(() => PersonEntity, { eager: true, cascade: true })
+	@JoinColumn({ name: 'personId' })
+	personId: PersonEntity;
 }

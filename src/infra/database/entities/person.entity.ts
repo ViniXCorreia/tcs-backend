@@ -6,6 +6,7 @@ import {
 	PrimaryGeneratedColumn,
 	UpdateDateColumn,
 } from 'typeorm';
+import { AddressEntity } from './address.entity';
 import { CompanyEntity } from './company.entity';
 
 @Entity({ name: 'person' })
@@ -47,4 +48,7 @@ export class PersonEntity {
 
 	@OneToOne(() => CompanyEntity)
 	company?: CompanyEntity;
+
+	@OneToOne(() => AddressEntity)
+	adressId?: AddressEntity;
 }

@@ -3,11 +3,14 @@ import {
 	CreateDateColumn,
 	Entity,
 	JoinColumn,
+	OneToMany,
 	OneToOne,
 	PrimaryGeneratedColumn,
 	UpdateDateColumn,
 } from 'typeorm';
+import { CollaboratorEntity } from './collaborator.entity';
 import { PersonEntity } from './person.entity';
+import { ServiceEntity } from './service.entity';
 
 @Entity({ name: 'company' })
 export class CompanyEntity {
@@ -34,11 +37,13 @@ export class CompanyEntity {
 	@Column()
 	active: boolean;
 
-	@OneToOne(() => PersonEntity)
+	@OneToOne(() => PersonEntity, { eager: true, cascade: true })
 	@JoinColumn({ name: 'responsiblePersonId' })
 	responsiblePerson: PersonEntity;
 
-	@OneToOne(() => PersonEntity, { eager: true, cascade: true })
-	@JoinColumn({ name: 'personId' })
-	personId: PersonEntity;
+	@OneToMany(() => ServiceEntity, (service) => service.companyId)
+	services: ServiceEntity[];
+
+	@OneToMany(() => CollaboratorEntity, (service) => service.companyId)
+	colaborator: CollaboratorEntity[];
 }

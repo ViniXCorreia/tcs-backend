@@ -20,8 +20,4 @@ export class AddressEntity {
 
 	@Column({ nullable: true })
 	complement?: string;
-
-	@OneToOne(() => PersonEntity, { eager: true, cascade: true })
-	@JoinColumn({ name: 'responsiblePersonId' })
-	responsiblePerson: PersonEntity;
 }

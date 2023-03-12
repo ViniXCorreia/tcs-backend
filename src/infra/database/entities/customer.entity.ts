@@ -4,6 +4,7 @@ import {
 	Entity,
 	JoinColumn,
 	ManyToOne,
+	OneToMany,
 	OneToOne,
 	PrimaryGeneratedColumn,
 	UpdateDateColumn,
@@ -26,6 +27,6 @@ export class CustomerEntity {
 	@JoinColumn({ name: 'personId' })
 	personId: PersonEntity;
 
-	@ManyToOne(() => ScheduleEntity, (schedule) => schedule.id)
-	scheduleId: ScheduleEntity;
+	@OneToMany(() => ScheduleEntity, (schedule) => schedule.customerId)
+	schedule: ScheduleEntity;
 }

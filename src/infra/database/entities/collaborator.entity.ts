@@ -3,6 +3,7 @@ import {
 	Entity,
 	JoinColumn,
 	ManyToOne,
+	OneToMany,
 	OneToOne,
 	PrimaryGeneratedColumn,
 	UpdateDateColumn,
@@ -29,6 +30,6 @@ export class CollaboratorEntity {
 	@ManyToOne(() => CompanyEntity, (company) => company.services)
 	companyId: CompanyEntity;
 
-	@ManyToOne(() => ScheduleEntity, (schedule) => schedule.id)
-	scheduleId: ScheduleEntity;
+	@OneToMany(() => ScheduleEntity, (schedule) => schedule.collaboratorId)
+	schedule: ScheduleEntity;
 }

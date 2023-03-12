@@ -1,12 +1,14 @@
 import {
 	CreateDateColumn,
 	Entity,
+	ManyToOne,
 	OneToMany,
 	PrimaryGeneratedColumn,
 	UpdateDateColumn,
 } from 'typeorm';
 import { CollaboratorEntity } from './collaborator.entity';
 import { CustomerEntity } from './customer.entity';
+import { ServiceEntity } from './service.entity';
 
 @Entity({ name: 'schedule' })
 export class ScheduleEntity {
@@ -19,12 +21,12 @@ export class ScheduleEntity {
 	@UpdateDateColumn()
 	updatedeAt: Date;
 
-	@OneToMany(() => CustomerEntity, (customer) => customer.scheduleId)
-	customer: CustomerEntity;
+	@ManyToOne(() => CustomerEntity, (custumer) => custumer.schedule)
+	customerId: CustomerEntity;
 
-	@OneToMany(
-		() => CollaboratorEntity,
-		(collaborator) => collaborator.scheduleId
-	)
-	collaborator: CollaboratorEntity;
+	@ManyToOne(() => CollaboratorEntity, (collaborator) => collaborator.schedule)
+	collaboratorId: CollaboratorEntity;
+
+	@ManyToOne(() => ServiceEntity, (service) => service.schedule)
+	serviceId: ServiceEntity;
 }

@@ -2,6 +2,7 @@ import {
 	Column,
 	CreateDateColumn,
 	Entity,
+	JoinColumn,
 	OneToOne,
 	PrimaryGeneratedColumn,
 	UpdateDateColumn,
@@ -49,6 +50,7 @@ export class PersonEntity {
 	@OneToOne(() => CompanyEntity)
 	company?: CompanyEntity;
 
-	@OneToOne(() => AddressEntity)
-	adressId?: AddressEntity;
+	@OneToOne(() => AddressEntity, { eager: true, cascade: true })
+	@JoinColumn({ name: 'addressId' })
+	adressId: AddressEntity;
 }

@@ -1,6 +1,5 @@
 import { Inject } from '@nestjs/common/decorators';
 import { PersonEntity } from 'src/infra/database/entities/person.entity';
-import { UserEntity } from 'src/infra/database/entities/user.entity';
 import { RepositoryProxyModule } from 'src/infra/database/proxy/repository.proxy.module';
 import { Repository } from 'typeorm';
 import {

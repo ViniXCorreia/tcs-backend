@@ -12,11 +12,11 @@ export class AuthService {
 	) {}
 
 	async validateUser(
-		username: string,
+		documentNumber: string,
 		password: string
 	): Promise<PersonEntity> {
 		const findUser = await this.personService.findOnePersonByDocumentNumber(
-			username
+			documentNumber
 		);
 		if (findUser && findUser.password === password) {
 			//TODO: COLOCAR A FUNÇÃO DE CRIPTOGRAFIA DAS CREDENCIAIS DO USUÁRIO

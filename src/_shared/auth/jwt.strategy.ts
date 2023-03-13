@@ -14,11 +14,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 	}
 
 	async validate(payload: any) {
-		//TODO: VERIFICAR QUAIS DADOS VÃO SER INCLUSOS DENTRO DO JWT
-		return {
-			id: payload.user.id,
-			name: payload.user.name,
-			type: payload.user.type,
-		};
+		return payload.user;
 	}
 }

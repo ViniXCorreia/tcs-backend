@@ -1,6 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { PersonEntity } from 'src/infra/database/entities/person.entity';
 import {
+	CREATE_PERSON_USE_CASE,
+	ICreatePersonUseCase,
+} from '../../useCase/createPerson/createperson.interface';
+import {
 	FIND_ONE_PERSON_BY_DOCUMENT_NUMBER,
 	IFindOnePersonByDocumentNumberUseCase,
 } from '../../useCase/findOnePersonByDocumentNumber/findOnePersonByDocumentNumber.interface';
@@ -17,6 +21,8 @@ export class PersonService {
 	constructor(
 		@Inject(LOGIN_USECASE)
 		private readonly loginUseCase: ILoginUseCase,
+		@Inject(CREATE_PERSON_USE_CASE)
+		private readonly createPersonUseCase: ICreatePersonUseCase,
 		// private readonly findOnePersonByEmalUseCase: IFindOnePersonByEmailUseCase,
 		@Inject(FIND_ONE_PERSON_BY_DOCUMENT_NUMBER)
 		private readonly findOnePersoByDocumentNumber: IFindOnePersonByDocumentNumberUseCase
@@ -26,7 +32,7 @@ export class PersonService {
 	}
 
 	async create(createPersonDto: CreatePersonDto) {
-		return await 'This action adds a new person';
+		return await this.createPersonUseCase.execute(CreatePersonDto);
 	}
 
 	async findAll() {
